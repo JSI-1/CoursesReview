@@ -1,0 +1,327 @@
+@import 'bootstrap';
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+:root {
+    --primary-color: #6366f1;
+    --primary-light: #818cf8;
+    --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+    --secondary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Figtree', sans-serif;
+}
+
+/* ============================================
+   RTL SUPPORT
+   ============================================ */
+[dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+}
+
+[dir="rtl"] .me-auto { margin-right: 0 !important; margin-left: auto !important; }
+[dir="rtl"] .ms-auto { margin-left: 0 !important; margin-right: auto !important; }
+[dir="rtl"] .me-2 { margin-right: 0 !important; margin-left: 0.5rem !important; }
+[dir="rtl"] .ms-2 { margin-left: 0 !important; margin-right: 0.5rem !important; }
+[dir="rtl"] .me-3 { margin-right: 0 !important; margin-left: 1rem !important; }
+[dir="rtl"] .ms-3 { margin-left: 0 !important; margin-right: 1rem !important; }
+[dir="rtl"] .ps-5 { padding-right: 3rem !important; padding-left: 0 !important; }
+[dir="rtl"] .text-start { text-align: right !important; }
+[dir="rtl"] .text-end { text-align: left !important; }
+[dir="rtl"] .dropdown-menu-end { right: auto !important; left: 0 !important; }
+[dir="rtl"] .dropdown-menu-start { left: auto !important; right: 0 !important; }
+[dir="rtl"] .navbar-nav { flex-direction: row-reverse; }
+[dir="rtl"] .dropdown-toggle::after { margin-left: 0; margin-right: 0.255em; }
+[dir="rtl"] .form-check-input { margin-left: 0; margin-right: 0.5em; }
+[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before { content: "‹"; padding-left: 0.5rem; padding-right: 0; }
+[dir="rtl"] body { font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif; }
+[dir="rtl"] .card-header, [dir="rtl"] .card-body { text-align: right; }
+[dir="rtl"] .dropdown-item:hover { transform: translateX(-5px); }
+[dir="rtl"] .review-item p { padding-left: 0; padding-right: 1rem; }
+[dir="rtl"] .review-item .d-flex.align-items-center { gap: 1rem; }
+
+/* ============================================
+   NAVBAR
+   ============================================ */
+.navbar {
+    background: var(--secondary-gradient) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 1.25rem 0;
+}
+
+.navbar-brand {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #ffffff !important;
+}
+
+.nav-link {
+    color: #ffffff !important;
+    border-radius: 8px;
+    padding: 0.625rem 1.25rem !important;
+    margin: 0 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff !important;
+}
+
+/* ============================================
+   CARDS
+   ============================================ */
+.card {
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.card:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+}
+
+.card-header {
+    padding: 1.25rem 1.5rem;
+    font-weight: 600;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+/* ============================================
+   FORMS
+   ============================================ */
+.form-control, .form-select, input, select, textarea {
+    border-radius: 10px;
+    padding: 0.875rem 1.25rem;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus, input:focus, select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25);
+    outline: none;
+}
+
+.form-label, label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn-primary {
+    background: var(--primary-gradient);
+    color: #ffffff !important;
+    border: none;
+    border-radius: 10px;
+    padding: 0.625rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+.btn-outline-danger, .btn-outline-secondary {
+    border-radius: 10px;
+    padding: 0.625rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-danger:hover, .btn-outline-secondary:hover {
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   TABLES
+   ============================================ */
+.table {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table thead th {
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 1rem;
+}
+
+.table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+/* ============================================
+   DROPDOWNS
+   ============================================ */
+.dropdown-menu {
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e9ecef;
+}
+
+.dropdown-item {
+    border-radius: 8px;
+    padding: 0.625rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background: #f8f9fa;
+    transform: translateX(5px);
+}
+
+/* ============================================
+   ALERTS
+   ============================================ */
+.alert {
+    border-left: 4px solid;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+}
+
+.alert-success { border-left-color: #10b981 !important; }
+.alert-danger { border-left-color: #ef4444 !important; }
+.alert-warning { border-left-color: #f59e0b !important; }
+.alert-info { border-left-color: #06b6d4 !important; }
+
+/* ============================================
+   MODALS
+   ============================================ */
+.modal-content {
+    border-radius: 16px;
+    border: 1px solid #e9ecef;
+}
+
+.modal-header {
+    border-bottom: 1px solid #e9ecef;
+}
+
+.modal-footer {
+    border-top: 1px solid #e9ecef;
+}
+
+/* ============================================
+   BREADCRUMBS
+   ============================================ */
+.breadcrumb {
+    border-radius: 10px;
+    padding: 0.875rem 1.25rem;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+}
+
+.breadcrumb-item a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+    color: var(--primary-light);
+    text-decoration: underline;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+    margin-top: auto;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* ============================================
+   PAGINATION
+   ============================================ */
+.pagination .page-link {
+    border-radius: 8px;
+    margin: 0 0.25rem;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.pagination .page-link:hover {
+    background: var(--primary-gradient);
+    color: #ffffff !important;
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.pagination .page-item.active .page-link {
+    background: var(--primary-gradient);
+    border-color: var(--primary-color);
+    color: #ffffff !important;
+}
+
+/* ============================================
+   BADGES
+   ============================================ */
+.bg-primary {
+    background: var(--primary-gradient) !important;
+    color: #ffffff !important;
+}
+
+.bg-secondary {
+    background: linear-gradient(135deg, #64748b 0%, #475569 100%) !important;
+    color: #ffffff !important;
+}
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+.min-vh-100 {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+body {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-gradient);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-gradient);
+}
