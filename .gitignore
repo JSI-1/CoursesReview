@@ -3,6 +3,8 @@
 /public/hot
 /public/storage
 /storage/*.key
+/storage/logs/*.log
+/storage/framework/views/*.php
 /vendor
 .env
 .env.backup
@@ -16,3 +18,17 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Laravel specific
+/bootstrap/cache/*.php
+/storage/app/public/feedback/*
+!/storage/app/public/feedback/.gitkeep
+
+# Temporary deployment scripts (delete after use)
+/public/create-storage-link.php
+/public/migrate.php
+/public/seed.php
+
+# OS files
+.DS_Store
+Thumbs.db
