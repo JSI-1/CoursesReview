@@ -1,7 +1,7 @@
 {
     "name": "laravel/course-review-app",
     "type": "project",
-    "description": "University Course Review System - Laravel SSR Application",
+    "description": "University Courses Review System - Laravel SSR Application",
     "keywords": ["laravel", "framework", "course-review"],
     "license": "MIT",
     "require": {

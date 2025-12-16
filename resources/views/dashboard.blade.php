@@ -12,9 +12,12 @@
         <h1 class="h2 mb-4">{{ __('messages.dashboard') }}</h1>
         <p class="lead">{{ $isRTL ? 'مرحباً بعودتك' : 'Welcome back' }}, {{ auth()->user()->name }}!</p>
 
-        <div class="card">
+        <div class="card shadow-sm">
             <div class="card-header">
-                <h5 class="mb-0">{{ __('messages.my_reviews') }}</h5>
+                <h5 class="mb-0 d-flex align-items-center">
+                    <span style="margin-{{ $isRTL ? 'left' : 'right' }}: 0.5rem; font-size: 1.5rem;">📝</span>
+                    {{ __('messages.my_reviews') }}
+                </h5>
             </div>
             <div class="card-body">
                 @if($reviews->count() > 0)
@@ -35,7 +38,7 @@
                                     <tr>
                                         <td>
                                             <a href="{{ route('courses.show', $review->course) }}" class="text-decoration-none fw-semibold">
-                                                {{ $review->course->name }}
+                                                {{ $review->course->translated_name }}
                                             </a>
                                         </td>
                                         <td><span class="badge bg-secondary">{{ $review->course->department->translated_name }}</span></td>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $course->name)
+@section('title', $course->translated_name)
 
 @php
     $isRTL = app()->getLocale() === 'ar';
@@ -13,42 +13,42 @@
         <nav aria-label="breadcrumb" class="mb-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('courses.index') }}">{{ __('messages.courses') }}</a></li>
-                <li class="breadcrumb-item active">{{ $course->name }}</li>
+                <li class="breadcrumb-item active">{{ $course->translated_name }}</li>
             </ol>
         </nav>
 
         <!-- Course Information -->
-        <div class="card mb-4">
+        <div class="card mb-4 shadow-sm">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-start mb-4">
                     <div class="flex-grow-1">
-                        <h1 class="h2 mb-2">{{ $course->name }}</h1>
+                        <h1 class="h2 mb-2">{{ $course->translated_name }}</h1>
                         <div class="d-flex gap-2 mb-3">
                             <span class="badge bg-primary">{{ $course->code }}</span>
                             <span class="badge bg-secondary">{{ $course->department->translated_name }}</span>
                             <span class="badge bg-info text-white">{{ $course->credits }} {{ __('messages.credits') }}</span>
                         </div>
                     </div>
-                    @if($averageRating > 0)
+                        @if($averageRating > 0)
                         <div class="text-center ms-4 p-3 rounded" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%); min-width: 150px;">
                             <div class="text-warning fs-3 mb-2">
-                                @for($i = 1; $i <= 5; $i++)
-                                    @if($i <= round($averageRating))
-                                        ★
-                                    @else
-                                        ☆
-                                    @endif
-                                @endfor
-                            </div>
+                                    @for($i = 1; $i <= 5; $i++)
+                                        @if($i <= round($averageRating))
+                                            ★
+                                        @else
+                                            ☆
+                                        @endif
+                                    @endfor
+                                </div>
                             <div class="fw-bold fs-5 text-primary">{{ number_format($averageRating, 1) }}/5.0</div>
                             <small class="text-muted">{{ trans_choice('messages.review_count', $reviewsCount, ['count' => $reviewsCount]) }}</small>
-                        </div>
-                    @endif
+                            </div>
+                        @endif
                 </div>
-                @if($course->description)
+                @if($course->translated_description)
                     <div class="mt-4 p-3 rounded" style="background: #f8fafc; {{ $isRTL ? 'border-right' : 'border-left' }}: 4px solid var(--primary-color);">
                         <h5 class="mb-2">{{ __('messages.description') }}</h5>
-                        <p class="mb-0" style="line-height: 1.7;">{{ $course->description }}</p>
+                        <p class="mb-0" style="line-height: 1.7;">{{ $course->translated_description }}</p>
                     </div>
                 @endif
             </div>
@@ -57,9 +57,12 @@
         <!-- Review Form (for authenticated users who haven't reviewed) -->
         @auth
             @if(!$userReview)
-                <div class="card mb-4">
+                <div class="card mb-4 shadow-sm">
                     <div class="card-header">
-                        <h5 class="mb-0">{{ __('messages.write_review') }}</h5>
+                        <h5 class="mb-0 d-flex align-items-center">
+                            <span style="margin-{{ $isRTL ? 'left' : 'right' }}: 0.5rem; font-size: 1.5rem;">✍️</span>
+                            {{ __('messages.write_review') }}
+                        </h5>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('reviews.store', $course) }}" enctype="multipart/form-data">
@@ -121,9 +124,12 @@
         @endauth
 
         <!-- Reviews List -->
-        <div class="card">
+        <div class="card shadow-sm">
             <div class="card-header">
-                <h5 class="mb-0">{{ __('messages.reviews') }} ({{ $reviewsCount }})</h5>
+                <h5 class="mb-0 d-flex align-items-center">
+                    <span style="margin-{{ $isRTL ? 'left' : 'right' }}: 0.5rem; font-size: 1.5rem;">💬</span>
+                    {{ __('messages.reviews') }} ({{ $reviewsCount }})
+                </h5>
             </div>
             <div class="card-body">
                 @if($reviews->count() > 0)
@@ -203,12 +209,12 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
                                                     <form method="POST" action="{{ route('reviews.destroy', [$course, $review]) }}" class="d-inline">
-                                                        @csrf
-                                                        @method('DELETE')
+                                            @csrf
+                                            @method('DELETE')
                                                         <button type="submit" class="btn btn-danger">
                                                             🗑️ {{ __('messages.delete_review') }}
                                                         </button>
-                                                    </form>
+                                        </form>
                                                 </div>
                                             </div>
                                         </div>

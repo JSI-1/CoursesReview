@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'app_name' => 'Course Review System',
+    'app_name' => 'Courses Review System',
     'courses' => 'Courses',
     'dashboard' => 'Dashboard',
     'login' => 'Login',
@@ -69,7 +69,7 @@ return [
     'close' => 'Close',
     'date' => 'Date',
     'actions' => 'Actions',
-    'welcome_title' => 'Welcome to Course Review System',
+    'welcome_title' => 'Welcome to Courses Review System',
     'welcome_description' => 'A Laravel SSR application for university students to review and rate college courses.',
     'success' => 'Success!',
     'error' => 'Error!',

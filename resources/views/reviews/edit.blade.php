@@ -16,14 +16,14 @@
         <nav aria-label="breadcrumb" class="mb-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('courses.index') }}">{{ __('messages.courses') }}</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('courses.show', $course) }}">{{ $course->name }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('courses.show', $course) }}">{{ $course->translated_name }}</a></li>
                 <li class="breadcrumb-item active">{{ __('messages.edit_review_title') }}</li>
             </ol>
         </nav>
 
         <div class="card">
             <div class="card-header">
-                <h5 class="mb-0">{{ __('messages.edit_review_title') }} {{ $isRTL ? 'لـ' : __('messages.for') }} {{ $course->name }}</h5>
+                <h5 class="mb-0">{{ __('messages.edit_review_title') }} {{ $isRTL ? 'لـ' : __('messages.for') }} {{ $course->translated_name }}</h5>
             </div>
             <div class="card-body">
                 <form method="POST" action="{{ route('reviews.update', [$course, $review]) }}" enctype="multipart/form-data">

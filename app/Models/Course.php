@@ -19,8 +19,10 @@ class Course extends Model
     protected $fillable = [
         'department_id',
         'name',
+        'name_ar',
         'code',
         'description',
+        'description_ar',
         'credits',
     ];
 
@@ -38,6 +40,30 @@ class Course extends Model
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class);
+    }
+
+    /**
+     * Get the translated name based on current locale.
+     */
+    public function getTranslatedNameAttribute()
+    {
+        $locale = app()->getLocale();
+        if ($locale === 'ar' && $this->name_ar) {
+            return $this->name_ar;
+        }
+        return $this->name;
+    }
+
+    /**
+     * Get the translated description based on current locale.
+     */
+    public function getTranslatedDescriptionAttribute()
+    {
+        $locale = app()->getLocale();
+        if ($locale === 'ar' && $this->description_ar) {
+            return $this->description_ar;
+        }
+        return $this->description;
     }
 
 }

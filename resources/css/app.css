@@ -13,6 +13,8 @@
 body {
     min-height: 100vh;
     font-family: 'Figtree', sans-serif;
+    padding-top: 80px; /* Space for fixed navbar */
+    padding-bottom: 80px; /* Space for fixed footer */
 }
 
 /* ============================================
@@ -49,8 +51,17 @@ body {
    ============================================ */
 .navbar {
     background: var(--secondary-gradient) !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background-size: 200% 200% !important;
+    animation: gradientShift 5s ease infinite !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     padding: 1.25rem 0;
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 .navbar-brand {
@@ -78,13 +89,34 @@ body {
 .card {
     border-radius: 16px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: 1px solid #e9ecef;
+    background: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--primary-gradient);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.card:hover::after {
+    transform: scaleX(1);
 }
 
 .card:hover {
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(99, 102, 241, 0.2);
+    transform: translateY(-6px);
+    border-color: var(--primary-color);
 }
 
 .card-header {
@@ -244,7 +276,12 @@ body {
    FOOTER
    ============================================ */
 footer {
-    margin-top: auto;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
 }
 
@@ -298,13 +335,695 @@ footer {
    ANIMATIONS
    ============================================ */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { 
+        opacity: 0; 
+        transform: translateY(20px);
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 body {
-    animation: fadeIn 0.3s ease-out;
+    animation: fadeIn 0.6s ease-out;
 }
+
+/* Fade in animation for cards */
+.card {
+    animation: fadeIn 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+.card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Course card specific animations */
+.course-card {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.course-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.6s;
+    z-index: 1;
+}
+
+.course-card:hover::before {
+    left: 100%;
+}
+
+.course-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 25px 50px rgba(99, 102, 241, 0.25);
+    border-color: var(--primary-color);
+}
+
+.course-card:hover .btn-primary span:last-child {
+    transform: translateX(5px);
+}
+
+[dir="rtl"] .course-card:hover .btn-primary span:last-child {
+    transform: translateX(-5px);
+}
+
+.course-card .card-body {
+    position: relative;
+    z-index: 2;
+}
+
+/* Navbar animations */
+.navbar {
+    animation: slideInUp 0.5s ease-out;
+}
+
+.nav-link {
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+    width: 80%;
+}
+
+/* Button animations */
+.btn-primary {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    z-index: -1;
+}
+
+.btn-primary:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.5);
+}
+
+/* Badge animations */
+.badge {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.badge:hover {
+    transform: scale(1.1) rotate(2deg);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Star rating animation */
+.text-warning {
+    display: inline-block;
+}
+
+.text-warning span,
+.text-warning {
+    transition: all 0.3s ease;
+}
+
+.text-warning:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 8px rgba(255, 193, 7, 0.8));
+}
+
+/* Alert animations */
+.alert {
+    animation: slideInRight 0.5s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.alert::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+/* Table row animations */
+.table tbody tr {
+    animation: fadeIn 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+.table tbody tr:nth-child(1) { animation-delay: 0.1s; }
+.table tbody tr:nth-child(2) { animation-delay: 0.2s; }
+.table tbody tr:nth-child(3) { animation-delay: 0.3s; }
+.table tbody tr:nth-child(4) { animation-delay: 0.4s; }
+.table tbody tr:nth-child(5) { animation-delay: 0.5s; }
+
+.table tbody tr:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Review item animations */
+.review-item {
+    animation: fadeIn 0.6s ease-out;
+    animation-fill-mode: both;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.review-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 0;
+    background: var(--primary-gradient);
+    transition: height 0.3s ease;
+}
+
+.review-item:hover::before {
+    height: 100%;
+}
+
+.review-item:hover {
+    transform: translateX(5px);
+    background: rgba(99, 102, 241, 0.02);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 0 -1rem;
+}
+
+[dir="rtl"] .review-item:hover {
+    transform: translateX(-5px);
+}
+
+/* Form input animations */
+.form-control:focus,
+.form-select:focus {
+    animation: pulse 0.3s ease;
+    transform: scale(1.02);
+}
+
+/* Loading spinner */
+.spinner-border {
+    animation: rotate 0.75s linear infinite;
+}
+
+/* Floating animation for special elements */
+.float-animation {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Gradient text animation */
+.gradient-text {
+    background: var(--primary-gradient);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease infinite;
+}
+
+/* Scroll reveal animation */
+.reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.6s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Modal animations */
+.modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out;
+    transform: translate(0, -50px);
+}
+
+.modal.show .modal-dialog {
+    transform: translate(0, 0);
+}
+
+/* Dropdown animations */
+.dropdown-menu {
+    animation: slideInUp 0.3s ease-out;
+}
+
+/* Pagination animations */
+.pagination .page-link {
+    position: relative;
+    overflow: hidden;
+}
+
+.pagination .page-link::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: var(--primary-gradient);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+    z-index: -1;
+}
+
+.pagination .page-link:hover::before {
+    width: 100px;
+    height: 100px;
+}
+
+/* Breadcrumb animations */
+.breadcrumb-item {
+    transition: all 0.3s ease;
+}
+
+.breadcrumb-item:hover {
+    transform: translateX(3px);
+}
+
+[dir="rtl"] .breadcrumb-item:hover {
+    transform: translateX(-3px);
+}
+
+/* Avatar animations */
+.rounded-circle {
+    transition: all 0.3s ease;
+}
+
+.rounded-circle:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+/* Ripple effect */
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Hero section */
+.hero-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+}
+
+/* Welcome text animation */
+.welcome-text {
+    opacity: 0;
+}
+
+/* Enhanced course card */
+.course-card .card-body {
+    position: relative;
+    z-index: 1;
+}
+
+/* Star rating hover effect */
+.text-warning {
+    cursor: pointer;
+}
+
+.text-warning:hover span {
+    animation: pulse 0.5s ease;
+}
+
+/* Smooth transitions for all interactive elements */
+a, button, .btn, .card, .nav-link, .dropdown-item {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Loading spinner enhancement */
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.15em;
+}
+
+/* Enhanced focus states */
+*:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Smooth page transitions */
+@keyframes pageTransition {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+main {
+    animation: pageTransition 0.5s ease-out;
+    min-height: calc(100vh - 152px); /* Account for fixed navbar and footer */
+}
+
+.content-wrapper {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Enhanced search form */
+.card-header {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+    border-bottom: 2px solid rgba(99, 102, 241, 0.1);
+}
+
+/* Rating display enhancement */
+.rating-display {
+    position: relative;
+    display: inline-block;
+}
+
+.rating-display::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 193, 7, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Enhanced badges */
+.badge {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+}
+
+/* Enhanced footer */
+footer {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--primary-gradient);
+}
+
+/* Search form enhancements */
+.card-header h5 {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+}
+
+/* Enhanced table */
+.table thead {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+}
+
+.table tbody tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Enhanced modals */
+.modal-header {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+    border-bottom: 2px solid rgba(99, 102, 241, 0.1);
+}
+
+.modal-title {
+    font-weight: 700;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Enhanced breadcrumbs */
+.breadcrumb-item.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Enhanced dropdowns */
+.dropdown-toggle::after {
+    transition: transform 0.3s ease;
+}
+
+.dropdown-toggle[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+}
+
+/* Loading states */
+.btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Enhanced form labels */
+.form-label {
+    color: #374151;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+/* Text selection */
+::selection {
+    background: rgba(99, 102, 241, 0.3);
+    color: #1e293b;
+}
+
+::-moz-selection {
+    background: rgba(99, 102, 241, 0.3);
+    color: #1e293b;
+}
+
+/* Enhanced shadows */
+.shadow-sm {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08) !important;
+}
+
+.shadow {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.shadow-lg {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Responsive enhancements */
+@media (max-width: 768px) {
+    .course-card:hover {
+        transform: translateY(-4px) scale(1.01);
+    }
+    
+    .card:hover {
+        transform: translateY(-3px);
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-2px) scale(1.02);
+    }
+}
+
+/* Print styles */
+@media print {
+    .navbar,
+    footer,
+    .btn,
+    .alert {
+        display: none !important;
+    }
+    
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+    }
+}
+
 
 /* ============================================
    SCROLLBAR

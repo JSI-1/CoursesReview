@@ -17,7 +17,7 @@
     @if($isRTL)
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     @else
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     @endif
 
     <!-- Scripts -->
@@ -68,8 +68,8 @@
                                     <a class="dropdown-item {{ $locale === 'ar' ? 'active' : '' }}" href="{{ route('language.switch', 'ar') }}">
                                         {{ __('messages.arabic') }}
                                     </a>
-                                </li>
-                            </ul>
+                    </li>
+                </ul>
                         </div>
                     </li>
                     @auth
@@ -105,7 +105,9 @@
     <main class="py-4 flex-grow-1">
         <div class="container">
             @include('components.flash-messages')
-            @yield('content')
+            <div class="content-wrapper">
+                @yield('content')
+            </div>
         </div>
     </main>
 

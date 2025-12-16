@@ -1,4 +1,4 @@
-# Course Review System
+# Courses Review System
 
 A Laravel-based web application for university students to review and rate college courses. Features bilingual support (English/Arabic) with RTL layout support, file uploads for reviews, and a modern, responsive design.
 
