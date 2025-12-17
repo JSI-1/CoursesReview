@@ -48,5 +48,7 @@ RUN composer dump-autoload --optimize --no-interaction
 EXPOSE 8080
 
 # Start Laravel
-CMD php -S 0.0.0.0:8080 -t public
+CMD php artisan migrate --force \
+    && php artisan db:seed --force \
+    && php -S 0.0.0.0:8080 -t public
 
