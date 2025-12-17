@@ -18,7 +18,7 @@
         </nav>
 
         <!-- Course Information -->
-        <div class="card mb-4 shadow-sm">
+        <div class="card mb-4">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-start mb-4">
                     <div class="flex-grow-1">
@@ -30,25 +30,25 @@
                         </div>
                     </div>
                         @if($averageRating > 0)
-                        <div class="text-center ms-4 p-3 rounded" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%); min-width: 150px;">
-                            <div class="text-warning fs-3 mb-2">
+                        <div class="text-center {{ $isRTL ? 'me-4' : 'ms-4' }} p-3 rounded bg-tertiary rating-box">
+                            <div class="fs-3 mb-2 rating-stars">
                                     @for($i = 1; $i <= 5; $i++)
                                         @if($i <= round($averageRating))
-                                            ★
+                                            <span class="star-filled">★</span>
                                         @else
-                                            ☆
+                                            <span class="star-empty">☆</span>
                                         @endif
                                     @endfor
                                 </div>
                             <div class="fw-bold fs-5 text-primary">{{ number_format($averageRating, 1) }}/5.0</div>
-                            <small class="text-muted">{{ trans_choice('messages.review_count', $reviewsCount, ['count' => $reviewsCount]) }}</small>
+                            <small class="text-muted rating-count-text">{{ trans_choice('messages.review_count', $reviewsCount, ['count' => $reviewsCount]) }}</small>
                             </div>
                         @endif
                 </div>
                 @if($course->translated_description)
-                    <div class="mt-4 p-3 rounded" style="background: #f8fafc; {{ $isRTL ? 'border-right' : 'border-left' }}: 4px solid var(--primary-color);">
+                    <div class="mt-4 p-3 rounded bg-tertiary description-box">
                         <h5 class="mb-2">{{ __('messages.description') }}</h5>
-                        <p class="mb-0" style="line-height: 1.7;">{{ $course->translated_description }}</p>
+                        <p class="mb-0">{{ $course->translated_description }}</p>
                     </div>
                 @endif
             </div>
@@ -57,10 +57,10 @@
         <!-- Review Form (for authenticated users who haven't reviewed) -->
         @auth
             @if(!$userReview)
-                <div class="card mb-4 shadow-sm">
+                <div class="card mb-4">
                     <div class="card-header">
                         <h5 class="mb-0 d-flex align-items-center">
-                            <span style="margin-{{ $isRTL ? 'left' : 'right' }}: 0.5rem; font-size: 1.5rem;">✍️</span>
+                            <span class="{{ $isRTL ? 'ms-2' : 'me-2' }}">✍️</span>
                             {{ __('messages.write_review') }}
                         </h5>
                     </div>
@@ -124,10 +124,10 @@
         @endauth
 
         <!-- Reviews List -->
-        <div class="card shadow-sm">
+        <div class="card">
             <div class="card-header">
                 <h5 class="mb-0 d-flex align-items-center">
-                    <span style="margin-{{ $isRTL ? 'left' : 'right' }}: 0.5rem; font-size: 1.5rem;">💬</span>
+                    <span class="{{ $isRTL ? 'ms-2' : 'me-2' }}">💬</span>
                     {{ __('messages.reviews') }} ({{ $reviewsCount }})
                 </h5>
             </div>
@@ -137,27 +137,27 @@
                         <div class="border-bottom pb-3 mb-3 review-item">
                             <div class="d-flex justify-content-between align-items-start mb-3">
                                 <div class="d-flex align-items-center">
-                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center {{ $isRTL ? 'ms-3' : 'me-3' }}" style="width: 45px; height: 45px; font-weight: 700; font-size: 1.1rem; flex-shrink: 0;">
+                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center review-avatar {{ $isRTL ? 'ms-3' : 'me-3' }}">
                                         {{ strtoupper(substr($review->user->name, 0, 1)) }}
                                     </div>
                                     <div class="{{ $isRTL ? 'text-right' : 'text-left' }}">
-                                        <strong class="d-block mb-1">{{ $review->user->name }}</strong>
-                                        <span class="text-muted small">{{ $review->created_at->format('M d, Y') }}</span>
+                                        <strong class="d-block mb-1 review-author">{{ $review->user->name }}</strong>
+                                        <span class="small text-muted">{{ $review->created_at->format('M d, Y') }}</span>
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="text-warning">
+                                    <div class="review-rating-stars">
                                         @for($i = 1; $i <= 5; $i++)
                                             @if($i <= $review->rating)
-                                                ★
+                                                <span class="star-filled">★</span>
                                             @else
-                                                ☆
+                                                <span class="star-empty">☆</span>
                                             @endif
                                         @endfor
                                     </div>
                                 </div>
                             </div>
-                            <p class="mb-2 {{ $isRTL ? 'pe-5' : 'ps-5' }}">{{ $review->comment }}</p>
+                            <p class="mb-2 review-text">{{ $review->comment }}</p>
                             @if($review->file_path)
                                 <div class="mb-2 {{ $isRTL ? 'pe-5' : 'ps-5' }}">
                                     <a href="{{ Storage::url($review->file_path) }}" target="_blank" class="btn btn-sm btn-outline-primary">
@@ -188,23 +188,23 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <p class="mb-3">{{ __('messages.delete_review_confirm') }}</p>
-                                                    <div class="alert alert-light border">
+                                                    <div class="review-preview-box">
                                                         <div class="d-flex align-items-center mb-2">
-                                                            <div class="text-warning me-2">
+                                                            <div class="review-rating-stars me-2">
                                                                 @for($i = 1; $i <= 5; $i++)
                                                                     @if($i <= $review->rating)
-                                                                        ★
+                                                                        <span class="star-filled">★</span>
                                                                     @else
-                                                                        ☆
+                                                                        <span class="star-empty">☆</span>
                                                                     @endif
                                                                 @endfor
                                                             </div>
-                                                            <strong>{{ $review->user->name }}</strong>
-                                                            <span class="text-muted small ms-2">{{ $review->created_at->format('M d, Y') }}</span>
+                                                            <strong class="review-preview-name">{{ $review->user->name }}</strong>
+                                                            <span class="review-preview-date ms-2">{{ $review->created_at->format('M d, Y') }}</span>
                                                         </div>
-                                                        <p class="mb-0 text-muted small">{{ Str::limit($review->comment, 100) }}</p>
+                                                        <p class="mb-0 review-preview-comment">{{ Str::limit($review->comment, 100) }}</p>
                                                     </div>
-                                                    <p class="text-danger mb-0"><strong>{{ __('messages.cannot_undo') }}</strong></p>
+                                                    <p class="text-danger mb-0 mt-3"><strong>{{ __('messages.cannot_undo') }}</strong></p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
@@ -229,7 +229,7 @@
                         {{ $reviews->links() }}
                     </div>
                 @else
-                    <p class="text-muted mb-0">{{ __('messages.no_reviews') }}</p>
+                    <p class="mb-0 text-muted">{{ __('messages.no_reviews') }}</p>
                 @endif
             </div>
         </div>

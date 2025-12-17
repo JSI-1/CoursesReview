@@ -12,10 +12,10 @@
         <h1 class="h2 mb-4">{{ __('messages.dashboard') }}</h1>
         <p class="lead">{{ $isRTL ? 'مرحباً بعودتك' : 'Welcome back' }}, {{ auth()->user()->name }}!</p>
 
-        <div class="card shadow-sm">
+        <div class="card">
             <div class="card-header">
                 <h5 class="mb-0 d-flex align-items-center">
-                    <span style="margin-{{ $isRTL ? 'left' : 'right' }}: 0.5rem; font-size: 1.5rem;">📝</span>
+                    <span class="{{ $isRTL ? 'ms-2' : 'me-2' }}">📝</span>
                     {{ __('messages.my_reviews') }}
                 </h5>
             </div>
@@ -43,12 +43,12 @@
                                         </td>
                                         <td><span class="badge bg-secondary">{{ $review->course->department->translated_name }}</span></td>
                                         <td>
-                                            <div class="text-warning">
+                                            <div class="table-rating-stars">
                                                 @for($i = 1; $i <= 5; $i++)
                                                     @if($i <= $review->rating)
-                                                        ★
+                                                        <span class="star-filled">★</span>
                                                     @else
-                                                        ☆
+                                                        <span class="star-empty">☆</span>
                                                     @endif
                                                 @endfor
                                             </div>
