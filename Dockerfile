@@ -31,11 +31,18 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --no-script
 # Copy application files
 COPY . .
 
-# Run composer scripts and set permissions
-RUN composer dump-autoload --optimize \
+# Create necessary directories and set permissions before composer scripts
+RUN mkdir -p /var/www/bootstrap/cache \
+    && mkdir -p /var/www/storage/framework/cache \
+    && mkdir -p /var/www/storage/framework/sessions \
+    && mkdir -p /var/www/storage/framework/views \
+    && mkdir -p /var/www/storage/logs \
     && chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www/storage \
-    && chmod -R 755 /var/www/bootstrap/cache
+    && chmod -R 775 /var/www/storage \
+    && chmod -R 775 /var/www/bootstrap/cache
+
+# Run composer scripts and optimize autoloader
+RUN composer dump-autoload --optimize --no-interaction
 
 # Expose port
 EXPOSE 8080
