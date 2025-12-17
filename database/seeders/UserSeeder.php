@@ -13,14 +13,16 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create admin user
-        User::create([
-            'name' => 'Ahmed Al-Mansouri',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password'),
-        ]);
+        // Create admin user (safe to run multiple times)
+        User::firstOrCreate(
+            ['email' => 'admin@example.com'], // UNIQUE key
+            [
+                'name' => 'Ahmed Al-Mansouri',
+                'password' => Hash::make('password'),
+            ]
+        );
 
-        // Create sample students with Arabic names
+        // Create sample students with Arabic names (safe to run multiple times)
         $students = [
             ['name' => 'Mohammed Ali', 'email' => 'mohammed@example.com'],
             ['name' => 'Fatima Hassan', 'email' => 'fatima@example.com'],
@@ -35,11 +37,13 @@ class UserSeeder extends Seeder
         ];
 
         foreach ($students as $student) {
-            User::create([
-                'name' => $student['name'],
-                'email' => $student['email'],
-                'password' => Hash::make('password'),
-            ]);
+            User::firstOrCreate(
+                ['email' => $student['email']], // UNIQUE key
+                [
+                    'name' => $student['name'],
+                    'password' => Hash::make('password'),
+                ]
+            );
         }
     }
 }
