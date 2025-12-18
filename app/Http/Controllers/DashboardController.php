@@ -7,9 +7,7 @@ use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
-    /**
-     * Display the user dashboard.
-     */
+    
     public function index(): View
     {
         $reviews = auth()->user()->reviews()
