@@ -10,11 +10,7 @@ class Review extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    
     protected $fillable = [
         'user_id',
         'course_id',
@@ -23,17 +19,12 @@ class Review extends Model
         'file_path',
     ];
 
-    /**
-     * Get the user that owns the review.
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Get the course that the review belongs to.
-     */
+  
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);
