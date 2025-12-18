@@ -9,9 +9,7 @@ use Illuminate\View\View;
 
 class CourseController extends Controller
 {
-    /**
-     * Display a listing of courses.
-     */
+   
     public function index(Request $request): View
     {
         $query = Course::with('department');
@@ -39,9 +37,7 @@ class CourseController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified course.
-     */
+   
     public function show(Course $course): View
     {
         $course->load('department');
